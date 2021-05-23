@@ -1,0 +1,28 @@
+C:\Users\ASUS\source\repos\4PD_Saugumas\4PD_Saugumas\bin\Debug\4PD_Saugumas.exe.config
+C:\Users\ASUS\source\repos\4PD_Saugumas\4PD_Saugumas\bin\Debug\4PD_Saugumas.exe
+C:\Users\ASUS\source\repos\4PD_Saugumas\4PD_Saugumas\bin\Debug\4PD_Saugumas.pdb
+C:\Users\ASUS\source\repos\4PD_Saugumas\4PD_Saugumas\obj\Debug\4PD_Saugumas.csprojAssemblyReference.cache
+C:\Users\ASUS\source\repos\4PD_Saugumas\4PD_Saugumas\obj\Debug\_4PD_Saugumas.Forms.LoginForm.resources
+C:\Users\ASUS\source\repos\4PD_Saugumas\4PD_Saugumas\obj\Debug\_4PD_Saugumas.Forms.PswManagerForm.resources
+C:\Users\ASUS\source\repos\4PD_Saugumas\4PD_Saugumas\obj\Debug\_4PD_Saugumas.Forms.RegisterForm.resources
+C:\Users\ASUS\source\repos\4PD_Saugumas\4PD_Saugumas\obj\Debug\_4PD_Saugumas.MainWindow.resources
+C:\Users\ASUS\source\repos\4PD_Saugumas\4PD_Saugumas\obj\Debug\_4PD_Saugumas.Properties.Resources.resources
+C:\Users\ASUS\source\repos\4PD_Saugumas\4PD_Saugumas\obj\Debug\4PD_Saugumas.csproj.GenerateResource.cache
+C:\Users\ASUS\source\repos\4PD_Saugumas\4PD_Saugumas\obj\Debug\4PD_Saugumas.csproj.CoreCompileInputs.cache
+C:\Users\ASUS\source\repos\4PD_Saugumas\4PD_Saugumas\obj\Debug\4PD_Saugumas.exe
+C:\Users\ASUS\source\repos\4PD_Saugumas\4PD_Saugumas\obj\Debug\4PD_Saugumas.pdb
+C:\Users\ASUS\Desktop\VIKO\2 Kursas\S2\Informacijos Saugumas\4PD_Saugumas\4PD_Saugumas\bin\Debug\PD4SaugumoDB.mdf
+C:\Users\ASUS\Desktop\VIKO\2 Kursas\S2\Informacijos Saugumas\4PD_Saugumas\4PD_Saugumas\bin\Debug\PD4SaugumoDB_log.ldf
+C:\Users\ASUS\Desktop\VIKO\2 Kursas\S2\Informacijos Saugumas\4PD_Saugumas\4PD_Saugumas\bin\Debug\4PD_Saugumas.exe.config
+C:\Users\ASUS\Desktop\VIKO\2 Kursas\S2\Informacijos Saugumas\4PD_Saugumas\4PD_Saugumas\bin\Debug\4PD_Saugumas.exe
+C:\Users\ASUS\Desktop\VIKO\2 Kursas\S2\Informacijos Saugumas\4PD_Saugumas\4PD_Saugumas\bin\Debug\4PD_Saugumas.pdb
+C:\Users\ASUS\Desktop\VIKO\2 Kursas\S2\Informacijos Saugumas\4PD_Saugumas\4PD_Saugumas\obj\Debug\4PD_Saugumas.csprojAssemblyReference.cache
+C:\Users\ASUS\Desktop\VIKO\2 Kursas\S2\Informacijos Saugumas\4PD_Saugumas\4PD_Saugumas\obj\Debug\_4PD_Saugumas.Forms.LoginForm.resources
+C:\Users\ASUS\Desktop\VIKO\2 Kursas\S2\Informacijos Saugumas\4PD_Saugumas\4PD_Saugumas\obj\Debug\_4PD_Saugumas.Forms.PswManagerForm.resources
+C:\Users\ASUS\Desktop\VIKO\2 Kursas\S2\Informacijos Saugumas\4PD_Saugumas\4PD_Saugumas\obj\Debug\_4PD_Saugumas.Forms.RegisterForm.resources
+C:\Users\ASUS\Desktop\VIKO\2 Kursas\S2\Informacijos Saugumas\4PD_Saugumas\4PD_Saugumas\obj\Debug\_4PD_Saugumas.MainWindow.resources
+C:\Users\ASUS\Desktop\VIKO\2 Kursas\S2\Informacijos Saugumas\4PD_Saugumas\4PD_Saugumas\obj\Debug\_4PD_Saugumas.Properties.Resources.resources
+C:\Users\ASUS\Desktop\VIKO\2 Kursas\S2\Informacijos Saugumas\4PD_Saugumas\4PD_Saugumas\obj\Debug\4PD_Saugumas.csproj.GenerateResource.cache
+C:\Users\ASUS\Desktop\VIKO\2 Kursas\S2\Informacijos Saugumas\4PD_Saugumas\4PD_Saugumas\obj\Debug\4PD_Saugumas.csproj.CoreCompileInputs.cache
+C:\Users\ASUS\Desktop\VIKO\2 Kursas\S2\Informacijos Saugumas\4PD_Saugumas\4PD_Saugumas\obj\Debug\4PD_Saugumas.exe
+C:\Users\ASUS\Desktop\VIKO\2 Kursas\S2\Informacijos Saugumas\4PD_Saugumas\4PD_Saugumas\obj\Debug\4PD_Saugumas.pdb
