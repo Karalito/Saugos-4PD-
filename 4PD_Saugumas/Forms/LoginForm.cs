@@ -30,7 +30,7 @@ namespace _4PD_Saugumas.Forms
                 {
                     // Funkcija prisijungimui
                     User user = userRepos.Login(usernameTxt.Text, passwordTxt.Text);
-                    if (user.UserName != null)
+                    if (user != null)
                     {
                         MessageBox.Show("Prisijungimas Sėkmingas !");
                         

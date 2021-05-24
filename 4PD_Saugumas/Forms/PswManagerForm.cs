@@ -2,7 +2,6 @@
 using _4PD_Saugumas.Models;
 using _4PD_Saugumas.Repositories;
 using System;
-using System.Data;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -20,7 +19,7 @@ namespace _4PD_Saugumas.Forms
             InitializeComponent();
             this.user = user;
             CheckFirstLogin();
-            dataGridView1.Columns[1].Visible = false;
+
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -43,11 +42,7 @@ namespace _4PD_Saugumas.Forms
             string dirPath = System.IO.Directory.GetCurrentDirectory();
             string path = dirPath + "\\PasswordData\\" + user.UserName + ".txt";
             string AESpath = dirPath + "\\PasswordData\\" + user.UserName + ".txt.aes";
-            if (File.Exists(AESpath))
-            {
-                Console.WriteLine("A");
-                AES.FileDecrypt(AESpath, path, user.UserPassword);
-            }
+
             Console.WriteLine(user.UserName + " " + user.UserPassword + " " + user.FirstLogin);
             if (user.FirstLogin == "Yes")
             {
@@ -58,6 +53,13 @@ namespace _4PD_Saugumas.Forms
                 userRepos.UpdateFirstTimeLogin(user.UserName);
                 MessageBox.Show("Jūs prisijungėte pirmą kartą, todėl jums buvo sukurtas naujas failiukas jūsų vardu !");
             }
+
+            if (File.Exists(AESpath))
+            {
+                Console.WriteLine("A");
+                AES.FileDecrypt(AESpath, path, user.UserPassword);
+            }
+            //ShowData(createPswDataGrid);
         }
 
         private void NewPswBtn_Click(object sender, EventArgs e)
@@ -66,6 +68,7 @@ namespace _4PD_Saugumas.Forms
             updatePswGroupBox.Visible = false;
             findPswGroupBox.Visible = false;
             deletePswGroupBox.Visible = false;
+            ShowData(createPswDataGrid);
         }
 
         private void UpdatePswBtn_Click(object sender, EventArgs e)
@@ -74,6 +77,7 @@ namespace _4PD_Saugumas.Forms
             updatePswGroupBox.Visible = true;
             findPswGroupBox.Visible = false;
             deletePswGroupBox.Visible = false;
+            ShowData(updatePswDataGrid);
         }
 
         private void FindPswBtn_Click(object sender, EventArgs e)
@@ -82,6 +86,7 @@ namespace _4PD_Saugumas.Forms
             updatePswGroupBox.Visible = false;
             findPswGroupBox.Visible = true;
             deletePswGroupBox.Visible = false;
+            ShowData(dataGridView1);
         }
 
         private void DeletePswBtn_Click(object sender, EventArgs e)
@@ -90,6 +95,7 @@ namespace _4PD_Saugumas.Forms
             updatePswGroupBox.Visible = false;
             findPswGroupBox.Visible = false;
             deletePswGroupBox.Visible = true;
+            ShowData(deletePswDataGrid);
         }
 
         private void SaveNewPswBtn_Click(object sender, EventArgs e)
@@ -104,10 +110,15 @@ namespace _4PD_Saugumas.Forms
                         if (File.Exists(path))
                         {
                             string encryptedPassword = RSA.Encryption(pswTxt.Text);
-                            string newText = ("\n" + userNameTxt.Text + "\t" + encryptedPassword + "\t" + urlAppTxt.Text + "\t" + additionalInfoTxt.Text);
+                            string newText = (userNameTxt.Text + "\t" + encryptedPassword + "\t" + urlAppTxt.Text + "\t" + additionalInfoTxt.Text);
                             File.AppendAllText(path, newText + Environment.NewLine);
 
                             MessageBox.Show("Slaptažodis sėkmingai išsaugotas !");
+
+                            userNameTxt.Text = "";
+                            pswTxt.Text = "";
+                            urlAppTxt.Text = "";
+                            additionalInfoTxt.Text = "";
                         }
                         else
                             MessageBox.Show("Nėra kur išsaugoti duomenų !");
@@ -131,23 +142,31 @@ namespace _4PD_Saugumas.Forms
                         if (File.Exists(path))
                         {
                             string encryptedPsw = RSA.Encryption(updatePswTxt.Text);
-                            string newText = "\n" + updateUsernameTxt.Text.Trim() + "\t" + encryptedPsw + "\t" + updateURLtxt.Text.Trim() + "\t" + updateAdditionalInfoTxt.Text.Trim();
-                            string[] lines = File.ReadAllLines(path);
-                            foreach (string line in lines)
+                            string newText = updateUsernameTxt.Text.Trim() + "\t" + encryptedPsw + "\t" + updateURLtxt.Text.Trim() + "\t" + updateAdditionalInfoTxt.Text.Trim();
+                            string[] data = File.ReadAllLines(path);
+                            var tempFile = Path.GetTempFileName();
+                            int hasPass = 0;
+                            foreach (string line in data)
                             {
                                 if (line.Contains(updateUsernameTxt.Text))
-                                {
-                                    var tempFile = Path.GetTempFileName();
-                                    var linesToKeep = File.ReadAllLines(path).Where(l => l != updateUsernameTxt.Text);
-
-                                    File.WriteAllLines(tempFile, linesToKeep);
-
-                                    File.Delete(path);
-                                    File.Move(tempFile, path);
-                                }
+                                    hasPass = 1;
                             }
-                            File.AppendAllText(path, newText + Environment.NewLine);
-                            MessageBox.Show("Slaptažodis sėkmingai atnaujintas !");
+                            if (hasPass == 1)
+                            {
+                                var linesToKeep = File.ReadAllLines(path).Where(l => !l.Contains(updateUsernameTxt.Text));
+                                File.WriteAllLines(tempFile, linesToKeep);
+
+                                File.Delete(path);
+                                File.Move(tempFile, path);
+                                File.AppendAllText(path, newText);
+
+                                MessageBox.Show("Slaptažodis sėkmingai atnaujintas !");
+                            }
+                            updateUsernameTxt.Text = "";
+                            updatePswTxt.Text = "";
+                            updateURLtxt.Text = "";
+                            updateAdditionalInfoTxt.Text = "";
+
                         }
                         else
                             MessageBox.Show("Nėra kur išsaugoti duomenų !");
@@ -165,7 +184,7 @@ namespace _4PD_Saugumas.Forms
             if (findPswTxt.Text != string.Empty)
             {
                 ReadAndFilter();
-
+                findPswTxt.Text = " ";
             }
             else
                 MessageBox.Show("Įveskite norimo surasti slaptažodžio vartotojo vardą !");
@@ -179,11 +198,11 @@ namespace _4PD_Saugumas.Forms
                 string dirPath = System.IO.Directory.GetCurrentDirectory();
                 string path = dirPath + "\\PasswordData\\" + user.UserName + ".txt";
 
+                string splitString = "\t";
+
                 string[] lines = File.ReadAllLines(path);
                 foreach (string line in lines)
                 {
-                    string splitString = "\t";
-
                     string[] split = line.Split(new string[] { splitString }, StringSplitOptions.None);
 
                     if (findPswTxt.Text == split[0])
@@ -206,6 +225,101 @@ namespace _4PD_Saugumas.Forms
                 dataGridView1.Columns[1].Visible = true;
             else
                 dataGridView1.Columns[1].Visible = false;
+        }
+
+        private void ShowData(DataGridView dataGrid)
+        {
+            dataGrid.Rows.Clear();
+            dataGrid.Columns[1].Visible = false;
+            string dirPath = System.IO.Directory.GetCurrentDirectory();
+            string path = dirPath + "\\PasswordData\\" + user.UserName + ".txt";
+
+            string splitString = "\t";
+
+            string[] lines = File.ReadAllLines(path);
+            foreach (string line in lines)
+            {
+                string[] split = line.Split(new string[] { splitString }, StringSplitOptions.None);
+
+                dataGrid.Rows.Add(split);
+            }
+            dataGrid.Rows[0].Visible = false;
+        }
+
+        private void ShowAllPswBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                dataGridView1.Rows.Clear();
+                ShowData(dataGridView1);
+                //dataGridView1.Rows[0].Visible = false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
+
+        private void DeletePassword_Click(object sender, EventArgs e)
+        {
+            if (usernameToDeletePswTxt.Text != string.Empty)
+            {
+                string dirPath = System.IO.Directory.GetCurrentDirectory();
+                string path = dirPath + "\\PasswordData\\" + user.UserName + ".txt";
+                if (File.Exists(path))
+                {
+                    string[] lines = File.ReadAllLines(path);
+                    int hasPass = 0;
+                    var tempFile = Path.GetTempFileName();
+                    Console.WriteLine(usernameToDeletePswTxt.Text);
+                    foreach (string line in lines)
+                    {
+                        if (line.Contains(usernameToDeletePswTxt.Text.Trim()))
+                        {
+                            hasPass = 1;
+                        }
+                    }
+                    if (hasPass > 0)
+                    {
+                        var linesToKeep = File.ReadAllLines(path).Where(l => !l.Contains(usernameToDeletePswTxt.Text));
+
+                        File.WriteAllLines(tempFile, linesToKeep);
+
+                        File.Delete(path);
+                        File.Move(tempFile, path);
+                        MessageBox.Show("Slaptažodis Sėkmingai ištrintas !");
+                    }
+                    else
+                        MessageBox.Show("Tokio slaptažodžio nėra !");
+                    Console.WriteLine(hasPass);
+                    usernameToDeletePswTxt.Text = "";
+                }
+                else
+                    MessageBox.Show("Neįvedėte vartotojo vardo !");
+            }
+        }
+
+        private void generateCreatePswBtn_Click(object sender, EventArgs e)
+        {
+            GenerateRandomPsw grp = new GenerateRandomPsw();
+            pswTxt.Text = grp.GenerateToken(15);
+        }
+
+        private void UpdateGeneratePswBtn_Click(object sender, EventArgs e)
+        {
+            GenerateRandomPsw grp = new GenerateRandomPsw();
+            updatePswTxt.Text = grp.GenerateToken(15);
+        }
+
+        private void CopyPswBtn_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.CurrentRow != null && dataGridView1.Rows.Count !=0)
+            {
+                Clipboard.SetText(dataGridView1.CurrentRow.Cells[1].Value.ToString());
+                MessageBox.Show("Slaptažodis nukopijuotas !");
+            }
+            else
+                MessageBox.Show("Nepavyko nukopijuoti !");
         }
     }
 }
